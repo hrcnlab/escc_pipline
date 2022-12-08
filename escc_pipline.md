@@ -337,7 +337,7 @@ svm.table
 caret::confusionMatrix(res_svm_trs$response,res_svm_trs$truth)
 ```
 
-####Extra IHC validate
+Extra IHC validate
 
 ```{r}
 library(readxl)
