@@ -3,6 +3,6 @@
 
 This git showing the demo code is for our manuscript "Discovered biomarkers for predicting esophageal squamous precancerous lesions to cancer transition".  
 
-THe file *escc_pipline.md* indicates the key progressing in R.  
+The file *escc_pipline.md* indicates the key progressing in R.  
 
 If there is any questions, please contact: xxxx@gmail.com
