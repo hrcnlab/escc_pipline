@@ -7,6 +7,6 @@ The article link and Raw_data ID will be updated after it is accepted.
 
 Fully anonymised data files are available from the corresponding author on reasonable request. 
 
-Scripts of Modeling founding and Characteristics Analysis are all included in in the repository, a demo data including characteristics in data_collection.
+Scripts of Modeling founding and Characteristics Analysis are all included in in the repository, a demo data including characteristics in [data_collection](https://github.com/hrcnlab/escc_pipline/tree/main/data_collect).
 
-If there is any questions, please contact: liuxuejiaoirene@163.com
+If there is any questions, please contact: [liuxuejiaoirene@163.com](mailto:liuxuejiaoirene@163.com)
