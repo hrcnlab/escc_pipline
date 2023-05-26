@@ -1,6 +1,7 @@
 # escc_gsva
 setwd("~/R/ESCC/escc_seq")
 load("escc_seq.Rdata")
+# part1 gsva
 
 # load the packages 
 pacman::p_load(clusterProfiler,ggplot2,GSVA,GSEABase,BiocParallel)
@@ -88,7 +89,7 @@ nrDEGs_hsa_class<-inner_join(nrDEGs,gmt_types,
   pull(gslist) %>%
   unique() -> plot_glists
 
-
+# part2 visualization
 # Heatmap visualization
 
 library(ComplexHeatmap)
@@ -182,3 +183,78 @@ dev.off()
 draw(ht, heatmap_legend_side = "left", 
      annotation_legend_list = list(lgd),
      merge_legend = TRUE)
+
+# patr 3 
+# SCORPIUS analysis
+
+library(SCORPIUS)
+ac<-colData(escc_seq)
+escc_fpkm<-assay(escc_seq,"fpkm")
+escc_fpkm<-escc_fpkm[,ac_sub$sample_id]
+boxplot(escc_fpkm)
+
+expression <- escc_fpkm
+group_name <- ac$his
+table(group_name)
+dim(expression)
+expression[1:4,1:4]
+
+ table(group_name)
+ dim(expression)
+expression[1:4,1:4]
+
+
+space <- reduce_dimensionality(expression, "spearman")
+draw_trajectory_plot(space, group_name, contour = TRUE)
+space <- reduce_dimensionality(expression, "spearman")
+draw_trajectory_plot(space, group_name, contour = TRUE)
+traj <- infer_trajectory(space)
+draw_trajectory_plot(space, group_name, traj$path, contour = TRUE)
+
+# warning: setting num_permutations to 10 requires a long time (~30min) to run!
+# set it to 0 and define a manual cutoff for the genes (e.g. top 200) for a much shorter execution time.
+gimp <- gene_importances(
+  expression, 
+  traj$time, 
+  num_permutations = 10, 
+  num_threads = 8, 
+  ntree = 10000,
+  ntree_perm = 1000
+) 
+gimp$qvalue <- p.adjust(gimp$pvalue, "BH", length(gimp$pvalue))
+gene_sel <- gimp$gene[gimp$qvalue < .05]
+expr_sel <- scale_quantile(expression[,gene_sel])
+
+# Draw a time series heatmap
+time <- traj$time
+draw_trajectory_heatmap(expr_sel, time)
+
+## Also show the progression groupings
+draw_trajectory_heatmap(expr_sel, time, 
+                        progression_group=group_name)
+
+## define your colors
+table(group_name)
+draw_trajectory_heatmap(
+  expr_sel, time, progression_group=group_name,
+  progression_group_palette = setNames(RColorBrewer::brewer.pal(3, "Set2"),
+                                       levels(group_name))
+)
+
+## extact models
+modules <- extract_modules(scale_quantile(expr_sel))
+draw_trajectory_heatmap(expr_sel, time,
+                        progression_group=group_name, modules=modules)
+
+# checke you genes
+genes_check_list<-"your gene lists"
+
+library(ggplot2)
+draw_trajectory_plot(space, expression[,"mygene"], 
+                     progression_group_palette = 
+                       setNames(RColorBrewer::brewer.pal(3, "Set1"),
+                                                  levels(group_name)),
+                     point_size =1.2,
+                                      traj$path) + 
+
+  labs(colour = "your Gene\nexpression")
