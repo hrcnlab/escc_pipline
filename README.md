@@ -1,7 +1,8 @@
 # escc_pipline for ESCC precancerous lesion
 -------------------------------------------------
 
-This repository containing the key demo code is for our manuscript: XJ Liu,et al.(2023) **"Reference number: NCOMMS-22-49342B"**.
+This repository containing the key demo code is for our manuscript:  
+XJ Liu,et al.(2023) **"Reference number: NCOMMS-22-49342B"**.
 
 The article link and Raw_data ID will be updated after it is accepted.
 
