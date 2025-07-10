@@ -1,7 +1,7 @@
 # escc_pipline for ESCC precancerous lesion
 -------------------------------------------------
-[Online Papaer](https://www.nature.com/articles/s41467-023-40343-5)
-2023 Aug 8;14(1):4779.
+[Online Papaer](https://www.nature.com/articles/s41467-023-40343-5)   
+2023 Aug    
 doi: 10.1038/s41467-023-40343-5. 
 -------------------------------------------------
 This repository containing the key demo code is for our manuscript:  
